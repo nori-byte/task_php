@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../routes/web.php';
+return new Src\Application(new Src\Settings(getConfigs()));
 const DIR_CONFIG = '../config/';
 spl_autoload_register(function ($className) {
     $paths = include __DIR__ . DIR_CONFIG . '/path.php';
@@ -22,5 +24,5 @@ function getConfigs(string $path = DIR_CONFIG): array
     }
     return $settings;
 }
-/
+
 return new Src\Application(new Src\Settings(getConfigs()));
