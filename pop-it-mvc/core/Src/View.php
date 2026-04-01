@@ -3,7 +3,6 @@
 namespace Src;
 
 use Exception;
-
 class View
 {
     private string $view = '';
@@ -32,7 +31,6 @@ class View
         return $this->root . $this->layout;
     }
 
-    //Путь до текущего шаблона
     private function getPathToView(string $view = ''): string
     {
         $view = str_replace('.', '/', $view);
@@ -43,7 +41,8 @@ class View
     {
         $path = $this->getPathToView($view);
 
-        if (file_exists($this->getPathToMain()) && file_exists($path)) {
+        if(file_exists($this->getPathToMain()) && file_exists($path))
+        {
             extract($data, EXTR_PREFIX_SAME, '');
             ob_start();
             require $path;
@@ -53,11 +52,8 @@ class View
         }
         throw new Exception('Error render');
     }
-
     public function __toString(): string
     {
         return $this->render($this->view, $this->data);
     }
-
 }
-

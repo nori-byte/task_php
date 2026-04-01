@@ -8,8 +8,7 @@ class Application
 {
     private Settings $settings;
     private Route $route;
-
-    public function __construct(Settings $settings)
+    public function __construct(Settings  $settings)
     {
         $this->settings = $settings;
         $this->route = new Route();
@@ -22,7 +21,6 @@ class Application
         }
         throw new Error('Accessing a non-existent property');
     }
-
     public function run(): void
     {
         $this->route->setPrefix($this->settings->getRootPath());

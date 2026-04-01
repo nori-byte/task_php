@@ -6,17 +6,18 @@
   "authors": [
     {
       "name": "nori-byte",
-      "email": "kulmanakovap@gmail.com"
+      "email": "kulmanakovap.com"
     }
   ],
   "minimum-stability": "dev",
   "require": {
-    "php": "^8.1 | ^8.3"
+    "php": "^7.4 | ^8.0"
   },
   "autoload": {
     "psr-4": {
       "Src\\": "core/Src/",
-      "": "app/"
+      "": "app/",
+      "Controller\\": "app/Controller/"
     }
   }
 }
