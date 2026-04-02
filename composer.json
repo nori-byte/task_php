@@ -6,12 +6,14 @@
   "authors": [
     {
       "name": "nori-byte",
-      "email": "kulmanakovap.com"
+      "email": "kulmanakovap@gmail.com"
     }
   ],
   "minimum-stability": "dev",
   "require": {
-    "php": "^7.4 | ^8.0"
+    "php": "^7.4 | ^8.0",
+    "illuminate/database": "10.x-dev",
+    "illuminate/events": "10.x-dev"
   },
   "autoload": {
     "psr-4": {

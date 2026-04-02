@@ -6,6 +6,10 @@ use Error;
 
 class Settings
 {
+    public function getDbSetting(): array
+    {
+        return $this->db ?? [];
+    }
     private array $_settings;
 
     public function __construct(array $settings = [])
