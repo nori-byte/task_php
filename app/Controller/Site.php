@@ -12,8 +12,23 @@ class Site
 {
     public function index(Request $request): string
     {
-        $posts = Post::where('id', $request->id)->get();
+        $posts = Post::all();
         return (new View())->render('site.post', ['posts' => $posts]);
+    }
+    public function categories(Request $request): string
+    {
+        $posts = Post::all();
+        return (new View())->render('site.category', ['categories' => $posts]);
+    }
+    public function departments(Request $request): string
+    {
+        $posts = Post::all();
+        return (new View())->render('site.department', ['departments' => $posts]);
+    }
+    public function employees(Request $request): string
+    {
+        $posts = Post::all();
+        return (new View())->render('site.employee', ['employees' => $posts]);
     }
 
     public function hello(): string
