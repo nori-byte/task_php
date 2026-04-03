@@ -170,3 +170,9 @@ button:hover, .button:hover {
     border-left: 4px solid #0e6245;
 }
 
+footer {
+    background: #2c3e50;
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

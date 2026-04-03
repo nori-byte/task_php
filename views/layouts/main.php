@@ -29,6 +29,11 @@
 <main>
     <?= $content ?? '' ?>
 </main>
+<footer>
+    <nav>
+        <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
+    </nav>
+</footer>
 
 </body>
 </html>
