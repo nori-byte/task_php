@@ -3,7 +3,7 @@
         'name' => 'gr441_koaal/pop-it-mvc',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f305d62f6df444cef941dadf210d9e9fb41e2e27',
+        'reference' => 'd2b00c5db73e5cfd1ebc32034085a25e66201eb4',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'gr441_koaal/pop-it-mvc' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f305d62f6df444cef941dadf210d9e9fb41e2e27',
+            'reference' => 'd2b00c5db73e5cfd1ebc32034085a25e66201eb4',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
