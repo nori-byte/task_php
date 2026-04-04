@@ -1,4 +1,4 @@
-<h1>Список подразделений</h1>
+<h1>Список состава</h1>
 
 <?php
 $selectedCompositions = $selectedCompositions ?? [];
@@ -27,7 +27,7 @@ $employees = $employees ?? [];
         <h3>Сотрудники выбранных составов:</h3>
         <table border="1">
             <thead>
-            <tr><th>ФИО</th><th>Должность</th><th>Подразделение</th></tr>
+            <tr><th>ФИО</th><th>Состав</th>
             </thead>
             <tbody>
             <?php foreach ($employees as $emp): ?>
@@ -42,3 +42,4 @@ $employees = $employees ?? [];
         <p>В выбранных составах нет сотрудников.</p>
     <?php endif; ?>
 <?php endif; ?>
+

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../public/style.css">
+    <link rel="stylesheet" href="style.css">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,20 +10,37 @@
 </head>
 <body>
 <header>
+<!--    <nav>-->
+<!--        <a href="--><?php //= app()->route->getUrl('/hello') ?><!--">Главная</a>-->
+<!--        <a href="--><?php //= app()->route->getUrl('/go') ?><!--">Посты</a>-->
+<!--        <a href="--><?php //= app()->route->getUrl('/employees') ?><!--">Сотрудники</a>-->
+<!--        <a href="--><?php //= app()->route->getUrl('/compositions') ?><!--">Составы</a>-->
+<!--        <a href="--><?php //= app()->route->getUrl('/departments') ?><!--">Подразделения</a>-->
+<!--        --><?php
+//        if (!app()->auth::check()):
+//            ?>
+<!--            <a href="--><?php //= app()->route->getUrl('/login') ?><!--">Вход</a>-->
+<!--            <a href="--><?php //= app()->route->getUrl('/signup') ?><!--">Регистрация</a>-->
+<!--        --><?php
+//        else:
+//            ?>
+<!--            <a href="--><?php //= app()->route->getUrl('/logout') ?><!--">Выход (--><?php //= app()->auth::user()->name ?><!--)</a>-->
+<!--        --><?php
+//        endif;
+//        ?>
+<!--    </nav>-->
     <nav>
         <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
-        <?php
-        if (!app()->auth::check()):
-            ?>
+        <?php if (app()->auth::check()): ?>
+            <a href="<?= app()->route->getUrl('/go') ?>">Посты</a>
+            <a href="<?= app()->route->getUrl('/employees') ?>">Сотрудники</a>
+            <a href="<?= app()->route->getUrl('/compositions') ?>">Составы</a>
+            <a href="<?= app()->route->getUrl('/departments') ?>">Подразделения</a>
+            <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>
+        <?php else: ?>
             <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
             <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
-        <?php
-        else:
-            ?>
-            <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>
-        <?php
-        endif;
-        ?>
+        <?php endif; ?>
     </nav>
 </header>
 <main>

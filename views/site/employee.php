@@ -12,6 +12,9 @@
             <td><?= $employee->birth_date ?></td>
             <td><?= $employee->gender ?></td>
             <td><?= $employee->address ?></td>
+            <td><?= $employee->composition_name ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
+
+

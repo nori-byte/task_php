@@ -5,6 +5,7 @@ namespace Controller;
 use Model\Department;
 use Model\Employee;
 use Model\Post;
+use Model\Composition;
 use Src\View;
 use Src\Request;
 use Model\User;
@@ -15,37 +16,91 @@ use Src\Validator\Validator;
 class Site
 {
 
+//    public function departments(Request $request): string
+//    {
+//        $departments = Department::all();
+//        $employees = Employee::all(['id_department', 'birth_date']);
+//
+//        // Считаем средний возраст для каждого подразделения
+//        $avgAge = [];
+//        foreach ($employees as $emp) {
+//            if (!$emp->birth_date) continue;
+//            $age = date_diff(date_create($emp->birth_date), date_create('today'))->y;
+//            $deptId = $emp->id_department;
+//
+//            if (!isset($avgAge[$deptId])) {
+//                $avgAge[$deptId] = ['sum' => 0, 'cnt' => 0];
+//            }
+//            $avgAge[$deptId]['sum'] += $age;
+//            $avgAge[$deptId]['cnt']++;
+//        }
+//
+//        // Добавляем avg_age к каждому подразделению
+//        foreach ($departments as $dept) {
+//            if (isset($avgAge[$dept->id_department])) {
+//                $dept->avg_age = round($avgAge[$dept->id_department]['sum'] / $avgAge[$dept->id_department]['cnt']);
+//            } else {
+//                $dept->avg_age = null;
+//            }
+//        }
+//
+//        return (new View())->render('site.department', ['departments' => $departments]);
+//    }
+
+    public function compositions(Request $request): string
+    {
+        $compositions = Composition::all();
+        $selectedCompositions = $_GET['composition_ids'] ?? [];
+        if (!is_array($selectedCompositions)) {
+            $selectedCompositions = [];
+        }
+        $employees = [];
+        if (!empty($selectedCompositions)) {
+            $employees = Employee::with(['position', 'department', 'composition'])
+                ->whereIn('id_composition', $selectedCompositions)
+                ->get();
+        }
+        return (new View())->render('site.compositions', [
+            'compositions' => $compositions,
+            'selectedCompositions' => $selectedCompositions,
+            'employees' => $employees
+        ]);
+    }
 
     public function departments(Request $request): string
     {
         $departments = Department::all();
-        $employees = Employee::all(['id_department', 'birth_date']);
+        $showAge = isset($_GET['show_age']); // проверяем, нажата ли кнопка
 
-        // Считаем средний возраст для каждого подразделения
-        $avgAge = [];
-        foreach ($employees as $emp) {
-            if (!$emp->birth_date) continue;
-            $age = date_diff(date_create($emp->birth_date), date_create('today'))->y;
-            $deptId = $emp->id_department;
-
-            if (!isset($avgAge[$deptId])) {
-                $avgAge[$deptId] = ['sum' => 0, 'cnt' => 0];
+        if ($showAge) {
+            $employees = Employee::all(['id_department', 'birth_date']);
+            $avgAge = [];
+            foreach ($employees as $emp) {
+                if (!$emp->birth_date) continue;
+                $age = date_diff(date_create($emp->birth_date), date_create('today'))->y;
+                $deptId = $emp->id_department;
+                if (!isset($avgAge[$deptId])) {
+                    $avgAge[$deptId] = ['sum' => 0, 'cnt' => 0];
+                }
+                $avgAge[$deptId]['sum'] += $age;
+                $avgAge[$deptId]['cnt']++;
             }
-            $avgAge[$deptId]['sum'] += $age;
-            $avgAge[$deptId]['cnt']++;
+            foreach ($departments as $dept) {
+                if (isset($avgAge[$dept->id_department])) {
+                    $dept->avg_age = round($avgAge[$dept->id_department]['sum'] / $avgAge[$dept->id_department]['cnt']);
+                } else {
+                    $dept->avg_age = null;
+                }
+            }
         }
 
-        // Добавляем avg_age к каждому подразделению
-        foreach ($departments as $dept) {
-            if (isset($avgAge[$dept->id_department])) {
-                $dept->avg_age = round($avgAge[$dept->id_department]['sum'] / $avgAge[$dept->id_department]['cnt']);
-            } else {
-                $dept->avg_age = null;
-            }
-        }
-
-        return (new View())->render('site.department', ['departments' => $departments]);
+        return (new View())->render('site.department', [
+            'departments' => $departments,
+            'showAge' => $showAge
+        ]);
     }
+
+
     public function index(Request $request): string
     {
         $posts = Post::all();
@@ -57,23 +112,15 @@ class Site
         $employees  = Employee::all();
         return (new View())->render('site.employee', ['employees' => $employees]);
     }
-//    public function departments(Request $request): string
-//    {
-//        $departments = Department::all();
-//        return (new View())->render('site.department', ['departments' => $departments]);
-//    }
 
     public function hello(): string
     {
         return new View('site.hello', ['message' => 'working']);
     }
-
-//    public function signup(Request $request): string
+//    public function compositions(Request $request): string
 //    {
-//        if ($request->method === 'POST' && User::create($request->all())) {
-//            app()->route->redirect('/go');
-//        }
-//        return new View('site.signup');
+//        $compositions  = Composition ::all();
+//        return (new View())->render('site.composition', ['compositions' => $compositions]);
 //    }
 
     public function signup(Request $request): string
@@ -123,6 +170,55 @@ class Site
     {
         Auth::logout();
         app()->route->redirect('/hello');
+    }
+    public function employeeCreate(Request $request): string
+    {
+        $this->checkHrStaff(); // проверка роли
+        if ($request->method === 'POST') {
+            $validator = new Validator($request->all(), [
+                'last_name'   => ['required'],
+                'first_name'  => ['required'],
+                'birth_date'  => ['required', 'date'],
+                'id_department'=> ['required']
+            ]);
+            if ($validator->fails()) {
+                return (new View())->render('site.employee_form', [
+                    'errors'      => $validator->errors(),
+                    'positions'   => Position::all(),
+                    'departments' => Department::all()
+                ]);
+            }
+            Employee::create($request->all());
+            app()->route->redirect('/employees');
+        }
+        return (new View())->render('site.employee_form', [
+            'positions'   => Position::all(),
+            'departments' => Department::all()
+        ]);
+    }
+    private function checkHrStaff()
+    {
+        if (!app()->auth::check()) {
+            app()->route->redirect('/login');
+        }
+        $role = app()->auth::user()->role;
+        if ($role !== 'admin' && $role !== 'hr_staff') {
+            app()->route->redirect('/login');
+        }
+    }
+    public function employeesByDepartment(Request $request): string
+    {
+        $departments = Department::all();
+        $selectedDept = $request->get('department_id');
+        $employees = [];
+        if ($selectedDept) {
+            $employees = Employee::where('id_department', $selectedDept)->get();
+        }
+        return (new View())->render('site.employees_by_dept', [
+            'departments' => $departments,
+            'selectedDept' => $selectedDept,
+            'employees' => $employees
+        ]);
     }
 }
 
