@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/app/Controller" isTestSource="false" packagePrefix="Controller\" />
       <sourceFolder url="file://$MODULE_DIR$/core/Src" isTestSource="false" packagePrefix="Src\" />
+      <sourceFolder url="file://$MODULE_DIR$/pop-it-mvc/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/pop-it-mvc/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />

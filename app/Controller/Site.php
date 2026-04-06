@@ -15,38 +15,6 @@ use Src\Validator\Validator;
 
 class Site
 {
-
-//    public function departments(Request $request): string
-//    {
-//        $departments = Department::all();
-//        $employees = Employee::all(['id_department', 'birth_date']);
-//
-//        // Считаем средний возраст для каждого подразделения
-//        $avgAge = [];
-//        foreach ($employees as $emp) {
-//            if (!$emp->birth_date) continue;
-//            $age = date_diff(date_create($emp->birth_date), date_create('today'))->y;
-//            $deptId = $emp->id_department;
-//
-//            if (!isset($avgAge[$deptId])) {
-//                $avgAge[$deptId] = ['sum' => 0, 'cnt' => 0];
-//            }
-//            $avgAge[$deptId]['sum'] += $age;
-//            $avgAge[$deptId]['cnt']++;
-//        }
-//
-//        // Добавляем avg_age к каждому подразделению
-//        foreach ($departments as $dept) {
-//            if (isset($avgAge[$dept->id_department])) {
-//                $dept->avg_age = round($avgAge[$dept->id_department]['sum'] / $avgAge[$dept->id_department]['cnt']);
-//            } else {
-//                $dept->avg_age = null;
-//            }
-//        }
-//
-//        return (new View())->render('site.department', ['departments' => $departments]);
-//    }
-
     public function compositions(Request $request): string
     {
         $compositions = Composition::all();

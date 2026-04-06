@@ -10,7 +10,7 @@ $employees = $employees ?? [];
 <form method="get">
     <fieldset>
         <legend>Выберите состав(ы):</legend>
-        <?php foreach ($compositions as $comp): ?>
+        <?php foreach ($departments as $department): ?>
             <label>
                 <input type="checkbox" name="composition_ids[]" value="<?= $comp->id_composition ?>"
                         <?= in_array($comp->id_composition, $selectedCompositions) ? 'checked' : '' ?>>
