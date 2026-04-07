@@ -23,4 +23,15 @@ class Employee extends Model
     {
         return $this->belongsTo(Composition::class, 'id_composition');
     }
+    protected $fillable = [
+        'last_name',
+        'first_name',
+        'middle_name',
+        'gender',
+        'birth_date',
+        'address',
+        'id_position',
+        'id_department',
+        'id_composition'
+    ];
 }

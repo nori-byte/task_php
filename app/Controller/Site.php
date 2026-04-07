@@ -5,6 +5,7 @@ namespace Controller;
 use Model\Department;
 use Model\Employee;
 use Model\Post;
+use Model\Position;
 use Model\Composition;
 use Src\View;
 use Src\Request;
@@ -35,36 +36,55 @@ class Site
         ]);
     }
 
+//    public function departments(Request $request): string
+//    {
+//        $departments = Department::all();
+//        $showAge = isset($_GET['show_age']); // проверяем, нажата ли кнопка
+//
+//        if ($showAge) {
+//            $employees = Employee::all(['id_department', 'birth_date']);
+//            $avgAge = [];
+//            foreach ($employees as $emp) {
+//                if (!$emp->birth_date) continue;
+//                $age = date_diff(date_create($emp->birth_date), date_create('today'))->y;
+//                $deptId = $emp->id_department;
+//                if (!isset($avgAge[$deptId])) {
+//                    $avgAge[$deptId] = ['sum' => 0, 'cnt' => 0];
+//                }
+//                $avgAge[$deptId]['sum'] += $age;
+//                $avgAge[$deptId]['cnt']++;
+//            }
+//            foreach ($departments as $dept) {
+//                if (isset($avgAge[$dept->id_department])) {
+//                    $dept->avg_age = round($avgAge[$dept->id_department]['sum'] / $avgAge[$dept->id_department]['cnt']);
+//                } else {
+//                    $dept->avg_age = null;
+//                }
+//            }
+//        }
+//
+//        return (new View())->render('site.department', [
+//            'departments' => $departments,
+//            'showAge' => $showAge
+//        ]);
+//    }
     public function departments(Request $request): string
     {
         $departments = Department::all();
-        $showAge = isset($_GET['show_age']); // проверяем, нажата ли кнопка
-
-        if ($showAge) {
-            $employees = Employee::all(['id_department', 'birth_date']);
-            $avgAge = [];
-            foreach ($employees as $emp) {
-                if (!$emp->birth_date) continue;
-                $age = date_diff(date_create($emp->birth_date), date_create('today'))->y;
-                $deptId = $emp->id_department;
-                if (!isset($avgAge[$deptId])) {
-                    $avgAge[$deptId] = ['sum' => 0, 'cnt' => 0];
-                }
-                $avgAge[$deptId]['sum'] += $age;
-                $avgAge[$deptId]['cnt']++;
-            }
-            foreach ($departments as $dept) {
-                if (isset($avgAge[$dept->id_department])) {
-                    $dept->avg_age = round($avgAge[$dept->id_department]['sum'] / $avgAge[$dept->id_department]['cnt']);
-                } else {
-                    $dept->avg_age = null;
-                }
-            }
+        $selectedDepartments = $_GET['department_ids'] ?? [];
+        if (!is_array($selectedDepartments)) {
+            $selectedDepartments = [];
         }
-
-        return (new View())->render('site.department', [
+        $employees = [];
+        if (!empty($selectedDepartments)) {
+            $employees = Employee::with(['position', 'department'])
+                ->whereIn('id_department', $selectedDepartments)
+                ->get();
+        }
+        return (new View())->render('site.departments', [
             'departments' => $departments,
-            'showAge' => $showAge
+            'selectedDepartments' => $selectedDepartments,
+            'employees' => $employees
         ]);
     }
 
@@ -85,16 +105,39 @@ class Site
     {
         return new View('site.hello', ['message' => 'working']);
     }
-//    public function compositions(Request $request): string
-//    {
-//        $compositions  = Composition ::all();
-//        return (new View())->render('site.composition', ['compositions' => $compositions]);
-//    }
 
+//    public function signup(Request $request): string
+//    {
+//        if ($request->method === 'POST') {
+//
+//            $validator = new Validator($request->all(), [
+//                'name' => ['required'],
+//                'login' => ['required', 'unique:users,login'],
+//                'password' => ['required']
+//            ], [
+//                'required' => 'поле :field пусто',
+//                'unique' => 'поле :field должно быть уникально'
+//            ]);
+//
+//            if($validator->fails()){
+//                // Собираем все ошибки в одну строку
+//                $errorMessages = [];
+//                foreach ($validator->errors() as $field => $messages) {
+//                    $errorMessages[] = implode(', ', $messages);
+//                }
+//                $message = implode(' и ', $errorMessages);
+//                return new View('site.signup', ['message' => $message]);
+//            }
+//
+//            if (User::create($request->all())) {
+//                app()->route->redirect('/login');
+//            }
+//        }
+//        return new View('site.signup');
+//    }
     public function signup(Request $request): string
     {
         if ($request->method === 'POST') {
-
             $validator = new Validator($request->all(), [
                 'name' => ['required'],
                 'login' => ['required', 'unique:users,login'],
@@ -105,7 +148,6 @@ class Site
             ]);
 
             if($validator->fails()){
-                // Собираем все ошибки в одну строку
                 $errorMessages = [];
                 foreach ($validator->errors() as $field => $messages) {
                     $errorMessages[] = implode(', ', $messages);
@@ -114,7 +156,11 @@ class Site
                 return new View('site.signup', ['message' => $message]);
             }
 
-            if (User::create($request->all())) {
+            // Добавляем роль по умолчанию - hr_staff
+            $data = $request->all();
+            $data['role'] = 'hr_staff';
+
+            if (User::create($data)) {
                 app()->route->redirect('/login');
             }
         }
@@ -139,41 +185,34 @@ class Site
         Auth::logout();
         app()->route->redirect('/hello');
     }
-    public function employeeCreate(Request $request): string
-    {
-        $this->checkHrStaff(); // проверка роли
-        if ($request->method === 'POST') {
-            $validator = new Validator($request->all(), [
-                'last_name'   => ['required'],
-                'first_name'  => ['required'],
-                'birth_date'  => ['required', 'date'],
-                'id_department'=> ['required']
-            ]);
-            if ($validator->fails()) {
-                return (new View())->render('site.employee_form', [
-                    'errors'      => $validator->errors(),
-                    'positions'   => Position::all(),
-                    'departments' => Department::all()
-                ]);
-            }
-            Employee::create($request->all());
-            app()->route->redirect('/employees');
-        }
-        return (new View())->render('site.employee_form', [
-            'positions'   => Position::all(),
-            'departments' => Department::all()
-        ]);
-    }
-    private function checkHrStaff()
-    {
-        if (!app()->auth::check()) {
-            app()->route->redirect('/login');
-        }
-        $role = app()->auth::user()->role;
-        if ($role !== 'admin' && $role !== 'hr_staff') {
-            app()->route->redirect('/login');
-        }
-    }
+//    public function employeeCreate(Request $request): string
+//    {
+//        $this->checkHrStaff();
+//        if ($request->method === 'POST') {
+//            $validator = new Validator($request->all(), [
+//                'last_name'   => ['required'],
+//                'first_name'  => ['required'],
+//                'birth_date'  => ['required', 'date'],
+//                'id_department'=> ['required']
+//            ]);
+//            if ($validator->fails()) {
+//                return (new View())->render('site.user_create', [
+//                    'errors'      => $validator->errors(),
+//                    'positions'   => Position::all(),
+//                    'departments' => Department::all(),
+//                    'compositions'=> Composition::all()
+//                ]);
+//            }
+//            Employee::create($request->all());
+//            app()->route->redirect('/employees');
+//        }
+//        // Здесь передаём списки для выпадающих меню
+//        return (new View())->render('site.user_create', [
+//            'positions'   => Position::all(),
+//            'departments' => Department::all(),
+//            'compositions'=> Composition::all()
+//        ]);
+//    }
     public function employeesByDepartment(Request $request): string
     {
         $departments = Department::all();
@@ -188,5 +227,66 @@ class Site
             'employees' => $employees
         ]);
     }
+
+    private function checkHrStaff()
+    {
+        if (!app()->auth::check()) {
+            app()->route->redirect('/login');
+        }
+        $roleName = app()->auth::user()->role->role_name;
+        if ($roleName !== 'admin' && $roleName !== 'hr_staff') {
+            app()->route->redirect('/login');
+        }
+    }
+
+    private function checkAdmin()
+    {
+        if (!app()->auth::check()) {
+            app()->route->redirect('/login');
+        }
+        if (app()->auth::user()->role->role_name !== 'admin') {
+            die('Доступ запрещён');
+        }
+    }
+
+    public function users(Request $request): string
+    {
+        $this->checkAdmin();
+        $users = User::all();
+        return (new View())->render('site.users', ['users' => $users]);
+    }
+
+    public function employeeCreate(Request $request): string
+    {
+        $this->checkHrStaff();
+        if ($request->method === 'POST') {
+            // Валидация
+            $validator = new Validator($request->all(), [
+                'last_name'   => ['required'],
+                'first_name'  => ['required'],
+                'birth_date'  => ['required', 'date'],
+                'id_department'=> ['required']
+            ]);
+            if ($validator->fails()) {
+                return (new View())->render('site.employee_form', [
+                    'errors'      => $validator->errors(),
+                    'positions'   => Position::all(),
+                    'departments' => Department::all(),
+                    'compositions'=> Composition::all()
+                ]);
+            }
+            // Удаляем csrf_token и сохраняем
+            $data = $request->all();
+            unset($data['csrf_token']);
+            Employee::create($data);
+            app()->route->redirect('/employees');
+        }
+        return (new View())->render('site.employee_form', [
+            'positions'   => Position::all(),
+            'departments' => Department::all(),
+            'compositions'=> Composition::all()
+        ]);
+    }
 }
+
 

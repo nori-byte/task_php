@@ -10,29 +10,12 @@
 </head>
 <body>
 <header>
-<!--    <nav>-->
-<!--        <a href="--><?php //= app()->route->getUrl('/hello') ?><!--">Главная</a>-->
-<!--        <a href="--><?php //= app()->route->getUrl('/go') ?><!--">Посты</a>-->
-<!--        <a href="--><?php //= app()->route->getUrl('/employees') ?><!--">Сотрудники</a>-->
-<!--        <a href="--><?php //= app()->route->getUrl('/compositions') ?><!--">Составы</a>-->
-<!--        <a href="--><?php //= app()->route->getUrl('/departments') ?><!--">Подразделения</a>-->
-<!--        --><?php
-//        if (!app()->auth::check()):
-//            ?>
-<!--            <a href="--><?php //= app()->route->getUrl('/login') ?><!--">Вход</a>-->
-<!--            <a href="--><?php //= app()->route->getUrl('/signup') ?><!--">Регистрация</a>-->
-<!--        --><?php
-//        else:
-//            ?>
-<!--            <a href="--><?php //= app()->route->getUrl('/logout') ?><!--">Выход (--><?php //= app()->auth::user()->name ?><!--)</a>-->
-<!--        --><?php
-//        endif;
-//        ?>
-<!--    </nav>-->
     <nav>
         <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
         <?php if (app()->auth::check()): ?>
             <a href="<?= app()->route->getUrl('/go') ?>">Посты</a>
+            <a href="<?= app()->route->getUrl('/create') ?>">Добавление сотрудника</a>
+            <a href="<?= app()->route->getUrl('/user_create') ?>">Пост</a>
             <a href="<?= app()->route->getUrl('/employees') ?>">Сотрудники</a>
             <a href="<?= app()->route->getUrl('/compositions') ?>">Составы</a>
             <a href="<?= app()->route->getUrl('/departments') ?>">Подразделения</a>

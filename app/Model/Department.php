@@ -10,5 +10,5 @@ class Department extends Model
     use HasFactory;
     public $timestamps = false;
     protected $primaryKey = 'id_department';
-
+    protected $table = 'departments';
 }
