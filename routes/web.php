@@ -9,11 +9,7 @@ Route::add(['GET', 'POST'], '/login', [Controller\Site::class, 'login']);
 Route::add('GET', '/logout', [Controller\Site::class, 'logout']);
 Route::add('GET', '/go', [Controller\Site::class, 'index']);
 Route::add(['GET', 'POST'], '/create', [Controller\Site::class, 'employeeCreate']);
-//Route::add('GET', '/employees', [Controller\Site::class, 'employees']);
-//Route::add('GET', '/departments', [Controller\Site::class, 'departments']);
-//Route::add('GET', '/compositions', [Controller\Site::class, 'compositions']);
-//Route::add('GET', '/employee/create', [Controller\Site::class, 'employeeCreate']);
-//Route::add('POST', '/employee/create', [Controller\Site::class, 'employeeCreate']);
+//Route::add(['GET', 'POST'], '/signup', [Controller\Site::class, 'hrCreate']);
 
 
 
@@ -31,7 +27,7 @@ Route::add('POST', '/employee/edit', [Controller\Site::class, 'employeeEdit']);
 Route::add('GET', '/employee/delete', [Controller\Site::class, 'employeeDelete']);
 
 // Подразделения
-Route::add('GET', '/departments', [Controller\Site::class, 'departments']);
+Route::add(['GET', 'POST'], '/departments', [Controller\Site::class, 'departments']);
 Route::add('GET', '/department/user_create', [Controller\Site::class, 'departmentCreate']);
 Route::add('POST', '/department/create', [Controller\Site::class, 'departmentCreate']);
 Route::add('GET', '/department/edit', [Controller\Site::class, 'departmentEdit']);

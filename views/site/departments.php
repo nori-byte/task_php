@@ -1,8 +1,11 @@
 <h1>Список подразделений</h1>
 
 <?php
+
 $selectedDepartments = $selectedDepartments ?? [];
 $employees = $employees ?? [];
+$showAverageAge = $showAverageAge ?? false;
+$averageAges = $averageAges ?? [];
 ?>
 
 <h2>Выбор сотрудников по подразделению</h2>
@@ -19,6 +22,7 @@ $employees = $employees ?? [];
         <?php endforeach; ?>
     </fieldset>
     <button type="submit">Показать сотрудников</button>
+        <button type="submit" name="show_age" value="1">Подсчитать средний возраст</button>
     <a href="/task_php/departments">Сбросить</a>
 </form>
 
@@ -27,13 +31,24 @@ $employees = $employees ?? [];
         <h3>Сотрудники выбранных подразделений:</h3>
         <table border="1">
             <thead>
-            <tr><th>ФИО</th><th>Подразделение</th></tr>
+            <tr>
+                <th>ФИО</th>
+                <th>Подразделение</th>
+                <?php if ($showAverageAge): ?>
+                    <th>Средний возраст по подразделению</th>
+                <?php endif; ?>
+            </tr>
             </thead>
             <tbody>
             <?php foreach ($employees as $emp): ?>
                 <tr>
                     <td><?= htmlspecialchars("{$emp->last_name} {$emp->first_name} {$emp->middle_name}") ?></td>
                     <td><?= htmlspecialchars($emp->department->name_department ?? '') ?></td>
+                    <?php if ($showAverageAge): ?>
+                        <td>
+                            <?= isset($averageAges[$emp->id_department]) ? $averageAges[$emp->id_department] . ' лет' : '—' ?>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -42,3 +57,11 @@ $employees = $employees ?? [];
         <p>В выбранных подразделениях нет сотрудников.</p>
     <?php endif; ?>
 <?php endif; ?>
+
+<h1>Новое подразделение</h1>
+<form method="post">
+    <label>Название: <input type="text" name="name" required></label><br>
+    <label>Вид подразделения: <input type="text" name="type" required></label><br>
+    <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
+    <button type="submit">Создать</button>
+</form>
