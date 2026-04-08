@@ -23,6 +23,10 @@ class ComposerStaticInit886d06a520e4611bdb937c5d59302618
         array (
             'voku\\' => 5,
         ),
+        'V' =>
+        array (
+            'ValidatorPackage\\' => 17,
+        ),
         'S' =>
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -73,6 +77,10 @@ class ComposerStaticInit886d06a520e4611bdb937c5d59302618
         'voku\\' =>
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+        ),
+        'ValidatorPackage\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/nori-byte/validator/src',
         ),
         'Symfony\\Polyfill\\Php80\\' =>
         array (

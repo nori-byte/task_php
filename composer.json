@@ -15,7 +15,8 @@
     "illuminate/database": "10.x-dev",
     "illuminate/events": "10.x-dev",
     "nikic/fast-route": "^2.0@dev",
-    "nori-byte/collect": "dev-main"
+    "nori-byte/collect": "dev-main",
+    "nori-byte/validator": "dev-main"
   },
   "autoload": {
     "psr-4": {

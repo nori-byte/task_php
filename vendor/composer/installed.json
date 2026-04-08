@@ -1031,6 +1031,50 @@
             "install-path": "../nori-byte/collect"
         },
         {
+            "name": "nori-byte/validator",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nori-byte/validator-package.git",
+                "reference": "e540478165d71ff457d3a9aaa94607ea237e6e6d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nori-byte/validator-package/zipball/e540478165d71ff457d3a9aaa94607ea237e6e6d",
+                "reference": "e540478165d71ff457d3a9aaa94607ea237e6e6d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 | ^8.0"
+            },
+            "time": "2026-04-08T10:30:49+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "ValidatorPackage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "nori-byte",
+                    "email": "kulmanakovap@gmail.com"
+                }
+            ],
+            "description": "Custom validation package with extendable rules",
+            "support": {
+                "issues": "https://github.com/nori-byte/validator-package/issues",
+                "source": "https://github.com/nori-byte/validator-package/tree/main"
+            },
+            "install-path": "../nori-byte/validator"
+        },
+        {
             "name": "psr/clock",
             "version": "1.0.0",
             "version_normalized": "1.0.0.0",

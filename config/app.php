@@ -8,12 +8,18 @@ return [
     'routeMiddleware' => [
         'auth' => \Middlewares\AuthMiddleware::class,
     ],
+//    'validators' => [
+//        'required' => \Validators\RequireValidator::class,
+//        'unique' => \Validators\UniqueValidator::class,
+//        'min_age' => \Validators\MinAgeValidator::class,
+//        'date'     => \Src\Validator\DateValidator::class,
+//        'cyrillic' => \Validators\CyrillicValidator::class
+//    ],
     'validators' => [
-        'required' => \Validators\RequireValidator::class,
-        'unique' => \Validators\UniqueValidator::class,
-        'min_age' => \Validators\MinAgeValidator::class,
-        'date'     => \Src\Validator\DateValidator::class,
-        'cyrillic' => \Validators\CyrillicValidator::class
+        'required' => \ValidatorPackage\Validator\RequireValidator::class,
+        'unique'   => \ValidatorPackage\Validator\UniqueValidator::class,
+        'min_age'  => \ValidatorPackage\Validators\MinAgeValidator::class,
+        'cyrillic' => \ValidatorPackage\Validators\CyrillicValidator::class,
     ],
     'routeAppMiddleware' => [
         'csrf' => \Middlewares\CSRFMiddleware::class,
