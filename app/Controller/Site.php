@@ -291,7 +291,6 @@ class Site
         return (new View())->render('site.users', ['users' => $users]);
     }
 
-
     public function employeeCreate(Request $request): string
     {
         $this->checkHrStaff();
@@ -300,30 +299,35 @@ class Site
             $validator = new Validator($request->all(), [
                 'last_name'     => ['required', 'cyrillic'],
                 'first_name'    => ['required', 'cyrillic'],
-                'middle_name'   => ['required', 'cyrillic'],
+                'middle_name'   => ['cyrillic'], // необязательно
                 'birth_date'    => ['required', 'date', 'min_age:14'],
             ], [
-                'required' => ' :field пусто',
-                'cyrillic' => ' :field должно содержать только кириллицу',
+                'required' => 'Поле :field пусто',
+                'cyrillic' => 'Поле :field должно содержать только кириллицу',
                 'min_age'  => 'Возраст должен быть не менее 14 лет',
             ]);
 
             if ($validator->fails()) {
                 $fieldNames = [
-                    'last_name'     => 'Фамилия',
-                    'first_name'    => 'Имя',
-                    'middle_name'   => 'Отчество',
-                    'birth_date'    => 'Дата рождения',
+                    'last_name'   => 'Фамилия',
+                    'first_name'  => 'Имя',
+                    'middle_name' => 'Отчество',
+                    'birth_date'  => 'Дата рождения',
                 ];
 
-                $errors = [];
-                foreach ($validator->errors() as $field => $messages) {
+                $errors = $validator->errors();
+                $errorMessages = [];
+
+                foreach ($errors as $field => $messages) {
                     $ruField = $fieldNames[$field] ?? $field;
                     foreach ($messages as $msg) {
-                        $errors[] = str_replace(':field', $ruField, $msg);
+                        $msg = str_replace($field, $ruField, $msg);
+                        $msg = str_replace(':field', $ruField, $msg);
+                        $errorMessages[] = $msg;
                     }
                 }
-                $message = implode(' и ', $errors);
+
+                $message = implode(' и ', $errorMessages);
 
                 return (new View())->render('site.employee_form', [
                     'message'     => $message,

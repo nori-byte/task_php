@@ -19,6 +19,7 @@ return [
         'required' => \ValidatorPackage\Validator\RequireValidator::class,
         'unique'   => \ValidatorPackage\Validator\UniqueValidator::class,
         'min_age'  => \ValidatorPackage\Validators\MinAgeValidator::class,
+        'date'     => \ValidatorPackage\Validators\DateValidator::class,
         'cyrillic' => \ValidatorPackage\Validators\CyrillicValidator::class,
     ],
     'routeAppMiddleware' => [
