@@ -3,7 +3,7 @@
         'name' => 'gr441_koaal/pop-it-mvc',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'd2b00c5db73e5cfd1ebc32034085a25e66201eb4',
+        'reference' => '8c246b90c242750d13d3afc16d5bd42e89805292',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'gr441_koaal/pop-it-mvc' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'd2b00c5db73e5cfd1ebc32034085a25e66201eb4',
+            'reference' => '8c246b90c242750d13d3afc16d5bd42e89805292',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -153,6 +153,17 @@
             'install_path' => __DIR__ . '/../nikic/fast-route',
             'aliases' => array(
                 0 => '2.0.x-dev',
+            ),
+            'dev_requirement' => false,
+        ),
+        'nori-byte/collect' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'bb796d147be38b49da9cdccd5241de04f7eef1a9',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nori-byte/collect',
+            'aliases' => array(
+                0 => '9999999-dev',
             ),
             'dev_requirement' => false,
         ),

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4105020de70ad0dec65bb0303d59bf70",
+    "content-hash": "f8e5fb3a8542fe1d6fa927e65221039b",
     "packages": [
         {
             "name": "brick/math",
@@ -945,6 +945,50 @@
             "time": "2025-06-18T20:36:20+00:00"
         },
         {
+            "name": "nori-byte/collect",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nori-byte/collect.git",
+                "reference": "bb796d147be38b49da9cdccd5241de04f7eef1a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nori-byte/collect/zipball/bb796d147be38b49da9cdccd5241de04f7eef1a9",
+                "reference": "bb796d147be38b49da9cdccd5241de04f7eef1a9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 | ^8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Collect\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "nori-byte",
+                    "email": "kulmanakovap@gmail.com"
+                }
+            ],
+            "description": "Module for working with arrays ",
+            "support": {
+                "issues": "https://github.com/nori-byte/collect/issues",
+                "source": "https://github.com/nori-byte/collect/tree/main"
+            },
+            "time": "2026-04-08T05:38:33+00:00"
+        },
+        {
             "name": "psr/clock",
             "version": "1.0.0",
             "source": {
@@ -1658,7 +1702,8 @@
     "stability-flags": {
         "illuminate/database": 20,
         "illuminate/events": 20,
-        "nikic/fast-route": 20
+        "nikic/fast-route": 20,
+        "nori-byte/collect": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

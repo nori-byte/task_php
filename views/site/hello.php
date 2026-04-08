@@ -29,7 +29,15 @@
                 <strong>Сотрудники:</strong>
                 <ul>
                     <?php foreach($employees as $emp): ?>
-                        <li><?= $emp->last_name ?> <?= $emp->first_name ?> <?= $emp->patronymic ?></li>
+                        <li>
+                            <?= htmlspecialchars("{$emp->last_name} {$emp->first_name} {$emp->middle_name}") ?>
+                            <?php if (!empty($emp->address)): ?>
+                                (адрес: <?= htmlspecialchars($emp->address) ?>)
+                            <?php endif; ?>
+                            <?php if (!empty($emp->birth_date)): ?>
+                                (дата рождения: <?= htmlspecialchars($emp->birth_date) ?>)
+                            <?php endif; ?>
+                        </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -40,7 +48,7 @@
                 <strong>Составы:</strong>
                 <ul>
                     <?php foreach($compositions as $comp): ?>
-                        <li><?= $comp->name_composition ?></li>
+                        <li><?= $comp->composition_name ?></li>
                     <?php endforeach; ?>
                 </ul>
             </div>

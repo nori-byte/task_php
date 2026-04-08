@@ -14,4 +14,5 @@ return array(
     '72579e7bd17821bb1321b87411366eae' => $vendorDir . '/illuminate/support/helpers.php',
     'ef65a1626449d89d0811cf9befce46f0' => $vendorDir . '/illuminate/events/functions.php',
     '253c157292f75eb38082b5acb06f3f01' => $vendorDir . '/nikic/fast-route/src/functions.php',
+    '823f3601acb7f828b108284e14ab8625' => $vendorDir . '/nori-byte/collect/src/helpers.php',
 );

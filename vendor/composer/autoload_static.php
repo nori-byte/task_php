@@ -15,6 +15,7 @@ class ComposerStaticInit886d06a520e4611bdb937c5d59302618
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         'ef65a1626449d89d0811cf9befce46f0' => __DIR__ . '/..' . '/illuminate/events/functions.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        '823f3601acb7f828b108284e14ab8625' => __DIR__ . '/..' . '/nori-byte/collect/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -58,6 +59,7 @@ class ComposerStaticInit886d06a520e4611bdb937c5d59302618
         'C' =>
         array (
             'Controller\\' => 11,
+            'Collect\\' => 8,
             'Carbon\\Doctrine\\' => 16,
             'Carbon\\' => 7,
         ),
@@ -150,6 +152,10 @@ class ComposerStaticInit886d06a520e4611bdb937c5d59302618
         'Controller\\' =>
         array (
             0 => __DIR__ . '/../..' . '/app/Controller',
+        ),
+        'Collect\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/nori-byte/collect/src',
         ),
         'Carbon\\Doctrine\\' =>
         array (
