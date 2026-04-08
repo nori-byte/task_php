@@ -10,7 +10,10 @@ return [
     ],
     'validators' => [
         'required' => \Validators\RequireValidator::class,
-        'unique' => \Validators\UniqueValidator::class
+        'unique' => \Validators\UniqueValidator::class,
+        'min_age' => \Validators\MinAgeValidator::class,
+        'date'     => \Src\Validator\DateValidator::class,
+        'cyrillic' => \Validators\CyrillicValidator::class
     ],
     'routeAppMiddleware' => [
         'csrf' => \Middlewares\CSRFMiddleware::class,

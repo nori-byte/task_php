@@ -4,6 +4,7 @@ namespace Src\Validator;
 
 class Validator
 {
+
     //Разрешенные валидаторы
     private array $validators = [];
     //Итоговые ошибки
@@ -73,5 +74,8 @@ class Validator
     {
         return (bool)count($this->errors);
     }
+
 }
+
+
 

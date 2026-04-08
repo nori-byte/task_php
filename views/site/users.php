@@ -28,7 +28,7 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
+
         <th>Имя</th>
         <th>Логин</th>
         <th>Роль</th>
@@ -37,7 +37,6 @@
     <tbody>
     <?php foreach ($users as $user): ?>
         <tr>
-            <td><?= htmlspecialchars($user->id_user, ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($user->name, ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($user->login, ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($user->role->role_name ?? '—', ENT_QUOTES, 'UTF-8') ?></td>
