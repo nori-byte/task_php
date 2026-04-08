@@ -1,4 +1,5 @@
 <h2>Добавление сотрудника</h2>
+<h3><?= $message ?? ''; ?></h3>
 <form method="post">
     <input type="hidden" name="csrf_token" value="<?= app()->auth::generateCSRF() ?>">
     <label>Фамилия: <input type="text" name="last_name" required></label><br>

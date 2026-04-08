@@ -55,7 +55,7 @@ class Validator
                 $args,
                 $this->messages[$validatorName]);
 
-            //Если валидация не прошла, то добавляем ошибку в общий массив ошибок
+
             if (!$validator->rule()) {
                 $this->errors[$fieldName][] = $validator->validate();
             }
