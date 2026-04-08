@@ -4,15 +4,10 @@ namespace Src\Validator;
 
 abstract class AbstractValidator
 {
-    //Наименование валидируемого поля
     protected string $field = '';
-    //Значение валидируемого поля
     protected $value;
-    //Дополнительные аргументы
     protected array $args = [];
-    //Массив ключей для замены в строке с ошибкой
     protected array $messageKeys = [];
-    //Базовое сообщение об ошибке
     protected string $message = '';
 
     public function __construct(string $fieldName, $value, $args = [], string $message = null)
@@ -28,7 +23,6 @@ abstract class AbstractValidator
         ];
     }
 
-    //Если правило валидации не прошло, то возвращаем сообщение об ошибке
     public function validate()
     {
         if (!$this->rule())
@@ -36,7 +30,6 @@ abstract class AbstractValidator
         return true;
     }
 
-    //Замена ключей на конкретные значения в сообщении об ошибке
     private function messageError(): string
     {
         foreach ($this->messageKeys as $key => $value) {
@@ -45,6 +38,5 @@ abstract class AbstractValidator
         return $message;
     }
 
-    //Основное правило валидации. Его должны переопределить классы-потомки
     abstract public function rule(): bool;
 }

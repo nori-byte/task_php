@@ -43,10 +43,11 @@ class Site
 
         if ($request->method === 'POST') {
             $validator = new Validator($request->all(), [
-                'name' => ['required'],
-                'type' => ['required'],
+                'name' => ['required', 'cyrillic'],
+                'type' => ['required', 'cyrillic'],
             ], [
-                'required' => 'Поле :field обязательно'
+                'required' => 'Поле :field обязательно',
+                'cyrillic' => 'Поле :field должно быть на кириллице'
             ]);
 
             if (!$validator->fails()) {
@@ -115,7 +116,6 @@ class Site
     {
         $this->checkHrStaff();
 
-        // Обработка POST-запроса (прикрепление сотрудника)
         if ($request->method === 'POST') {
             $data = $request->all();
 
@@ -137,7 +137,6 @@ class Site
             return '';
         }
 
-        // GET-запрос: показываем список сотрудников
         $employees = Employee::with('department')->get();
         $departments = Department::all();
         return (new View())->render('site.employee', [
@@ -222,12 +221,13 @@ class Site
 
         if ($request->method === 'POST') {
             $validator = new Validator($request->all(), [
-                'name'     => ['required'],
+                'name'     => ['required', 'cyrillic'],
                 'login'    => ['required', 'unique:users,login'],
-                'password' => ['required']
+                'password' => ['required', 'cyrillic']
             ], [
                 'required' => 'Поле :field пусто',
-                'unique'   => 'Поле :field должно быть уникально'
+                'unique'   => 'Поле :field должно быть уникально',
+                'cyrillic' => ' :field должно содержать только кириллицу',
             ]);
 
             if ($validator->fails()) {
@@ -292,52 +292,6 @@ class Site
         return (new View())->render('site.users', ['users' => $users]);
     }
 
-//    public function employeeCreate(Request $request): string
-//    {
-//        $this->checkHrStaff();
-//
-//        if ($request->method === 'POST') {
-//            $validator = new Validator($request->all(), [
-//                'last_name'     => ['required', 'cyrillic'],
-//                'first_name'    => ['required', 'cyrillic'],
-//                'middle_name'   => ['cyrillic'],
-//                'birth_date'    => ['required', 'date', 'min_age:14'],
-//            ], [
-//                'required' => 'Поле :field пусто',
-//                'min_age'  => 'Возраст должен быть не менее 14 лет',
-//                'cyrillic' => 'Поле должно содержать только кириллицу',
-//            ]);
-//
-//            if ($validator->fails()) {
-//
-//                $errors = [];
-//                foreach ($validator->errors() as $field => $messages) {
-//                    $errors[] = implode(', ', $messages);
-//                }
-//                $message = implode(' и ', $errors);
-//
-//                return (new View())->render('site.employee_form', [
-//                    'message'     => $message,
-//                    'positions'   => Position::all(),
-//                    'departments' => Department::all(),
-//                    'compositions'=> Composition::all()
-//                ]);
-//            }
-//
-//            $data = $request->all();
-//            unset($data['csrf_token']);
-//            Employee::create($data);
-//
-//            $_SESSION['flash'] = " Сотрудник успешно добавлен.";
-//            app()->route->redirect('/employees');
-//        }
-//
-//        return (new View())->render('site.employee_form', [
-//            'positions'   => Position::all(),
-//            'departments' => Department::all(),
-//            'compositions'=> Composition::all()
-//        ]);
-//    }
 
     public function employeeCreate(Request $request): string
     {
@@ -347,7 +301,7 @@ class Site
             $validator = new Validator($request->all(), [
                 'last_name'     => ['required', 'cyrillic'],
                 'first_name'    => ['required', 'cyrillic'],
-                'middle_name'   => ['cyrillic'],
+                'middle_name'   => ['required', 'cyrillic'],
                 'birth_date'    => ['required', 'date', 'min_age:14'],
             ], [
                 'required' => ' :field пусто',
