@@ -8,13 +8,6 @@ return [
     'routeMiddleware' => [
         'auth' => \Middlewares\AuthMiddleware::class,
     ],
-//    'validators' => [
-//        'required' => \Validators\RequireValidator::class,
-//        'unique' => \Validators\UniqueValidator::class,
-//        'min_age' => \Validators\MinAgeValidator::class,
-//        'date'     => \Src\Validator\DateValidator::class,
-//        'cyrillic' => \Validators\CyrillicValidator::class
-//    ],
     'validators' => [
         'required' => \ValidatorPackage\Validator\RequireValidator::class,
         'unique'   => \ValidatorPackage\Validator\UniqueValidator::class,
@@ -27,5 +20,12 @@ return [
         'trim' => \Middlewares\TrimMiddleware::class,
         'specialChars' => \Middlewares\SpecialCharsMiddleware::class,
     ],
+    'providers' => [
+        'kernel' => \Providers\KernelProvider::class,
+        'route' => \Providers\RouteProvider::class,
+        'db' => \Providers\DBProvider::class,
+        'auth' => \Providers\AuthProvider::class,
+    ],
+
 
 ];

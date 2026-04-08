@@ -104,13 +104,6 @@ class Site
         $posts = Post::all();
         return (new View())->render('site.post', ['posts' => $posts]);
     }
-
-//    public function employees(Request $request): string
-//    {
-//        $this->checkHrStaff();
-//        $employees  = Employee::all();
-//        return (new View())->render('site.employee', ['employees' => $employees]);
-//    }
     public function employees(Request $request): string
     {
         $this->checkHrStaff();
@@ -180,40 +173,6 @@ class Site
         ]);
     }
 
-
-//    public function signup(Request $request): string
-//    {
-//        $this->checkAdmin();
-//
-//        if ($request->method === 'POST') {
-//            $validator = new Validator($request->all(), [
-//                'name'     => ['required'],
-//                'login'    => ['required', 'unique:users,login'],
-//                'password' => ['required']
-//            ], [
-//                'required' => 'Поле :field пусто',
-//                'unique'   => 'Поле :field должно быть уникально'
-//            ]);
-//
-//            if ($validator->fails()) {
-//                $errors = [];
-//                foreach ($validator->errors() as $field => $messages) {
-//                    $errors[] = implode(', ', $messages);
-//                }
-//                $message = implode(' и ', $errors);
-//                return (new View())->render('site.signup', ['message' => $message]);
-//            }
-//
-//            $data = $request->all();
-//            $data['id_role'] = 6;
-//            $data['password'] = md5($data['password']);
-//
-//            if (User::create($data)) {
-//                app()->route->redirect('/login');
-//            }
-//        }
-//        return (new View())->render('site.signup');
-//    }
     public function signup(Request $request): string
     {
         $this->checkAdmin();

@@ -33,3 +33,16 @@ function getConfigs(string $path = DIR_CONFIG):array
 //require_once __DIR__ . '/../routes/web.php';
 
 return new Src\Application(new Src\Settings(getConfigs()));
+
+
+////Подключение автозагрузчика composer
+//require_once __DIR__ . '/../vendor/autoload.php';
+//
+////Создание экземпляра приложения
+//$app = new Src\Application(require __DIR__ . '/../config/app.php');
+//
+////Подключение хелперов
+//require_once __DIR__ . '/../core/helpers.php';
+//
+//return $app;
+
