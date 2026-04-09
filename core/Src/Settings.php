@@ -6,12 +6,7 @@ use Error;
 
 class Settings
 {
-    public function getDbSetting(): array
-    {
-        return $this->db ?? [];
-    }
     private array $_settings;
-
     public function __construct(array $settings = [])
     {
         $this->_settings = $settings;
@@ -23,7 +18,6 @@ class Settings
         }
         throw new Error('Accessing a non-existent property');
     }
-
     public function getRootPath(): string
     {
         return $this->path['root'] ? '/' . $this->path['root'] : '';
@@ -32,24 +26,27 @@ class Settings
     {
         return '/' . $this->path['views'] ?? '';
     }
+    public function getDbSetting(): array
+    {
+        return $this->db ?? [];
+    }
+
     public function getRoutePath(): string
     {
         return '/' . $this->path['routes'] ?? '';
     }
-
     public function getAuthClassName(): string
     {
         return $this->app['auth'] ?? '';
     }
-
     public function getIdentityClassName(): string
     {
         return $this->app['identity'] ?? '';
     }
-
     public function removeAppMiddleware(string $key): void
     {
         unset($this->_settings['app']['routeAppMiddleware'][$key]);
     }
+
 
 }

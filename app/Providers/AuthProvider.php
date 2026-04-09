@@ -21,3 +21,4 @@ class AuthProvider extends AbstractProvider
         $this->app->bind('auth', new $authClass);
     }
 }
+

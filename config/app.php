@@ -21,10 +21,10 @@ return [
         'specialChars' => \Middlewares\SpecialCharsMiddleware::class,
     ],
     'providers' => [
-        'kernel' => \Providers\KernelProvider::class,
-        'route' => \Providers\RouteProvider::class,
-        'db' => \Providers\DBProvider::class,
-        'auth' => \Providers\AuthProvider::class,
+        'kernel' => Providers\KernelProvider::class,
+        'route' => Providers\RouteProvider::class,
+        'db' => Providers\DBProvider::class,
+        'auth' => Providers\AuthProvider::class,
     ],
 
 
