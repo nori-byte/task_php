@@ -218,6 +218,7 @@ class Site
             return new View('site.login');
         }
         if (Auth::attempt($request->all())) {
+            $token = bin2hex(random_bytes(16));
             app()->route->redirect('/hello');
         }
         return new View('site.login', ['message' => 'Неправильные логин или пароль']);
@@ -332,7 +333,4 @@ class Site
             exit;
         }
     }
-
 }
-
-

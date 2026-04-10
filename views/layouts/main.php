@@ -11,8 +11,8 @@
 <body>
 <header>
     <nav>
-        <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
         <?php if (app()->auth::check()): ?>
+            <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
             <a href="<?= app()->route->getUrl('/go') ?>">Посты</a>
             <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация сотрудника отдела кадров</a>
             <a href="<?= app()->route->getUrl('/create') ?>">Добавление сотрудника</a>
@@ -30,9 +30,6 @@
     <?= $content ?? '' ?>
 </main>
 <footer>
-    <nav>
-        <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
-    </nav>
 </footer>
 </body>
 </html>

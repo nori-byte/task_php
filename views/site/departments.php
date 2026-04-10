@@ -22,7 +22,7 @@ $averageAges = $averageAges ?? [];
         <?php endforeach; ?>
     </fieldset>
     <button type="submit">Показать сотрудников</button>
-        <button type="submit" name="show_age" value="1">Подсчитать средний возраст</button>
+    <button type="submit" name="show_age" value="1">Подсчитать средний возраст</button>
     <a href="/task_php/departments">Сбросить</a>
 </form>
 

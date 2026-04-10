@@ -4,8 +4,8 @@
     <title>Список пользователей</title>
     <style>
         .flash { padding: 10px; margin: 10px 0; border-radius: 5px; }
-        .flash.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .flash.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .flash.success { background: #d4edda; color: #155724; }
+        .flash.error { background: #f8d7da; color: #721c24; }
         table { border-collapse: collapse; width: 100%; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
@@ -15,12 +15,7 @@
 
 <h1>Управление пользователями</h1>
 
-<?php if (isset($_SESSION['flash'])): ?>
-    <div class="flash <?= strpos($_SESSION['flash'], '✅') !== false ? 'success' : 'error' ?>">
-        <?= htmlspecialchars($_SESSION['flash'], ENT_QUOTES, 'UTF-8') ?>
-    </div>
-    <?php unset($_SESSION['flash']); ?>
-<?php endif; ?>
+
 
 
 <p><a href="/task_php/signup"> Зарегистрировать нового пользователя</a></p>
